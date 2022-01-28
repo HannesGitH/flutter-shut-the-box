@@ -1,5 +1,5 @@
-import 'package:shut_the_box/gameModel/card.dart';
-import 'package:shut_the_box/gameModel/cardSets.dart';
+import 'card.dart';
+import 'cardSets.dart';
 
 class Player {
   bool hasWon;

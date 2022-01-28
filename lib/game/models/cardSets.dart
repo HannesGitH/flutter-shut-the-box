@@ -1,4 +1,4 @@
-import 'package:shut_the_box/gameModel/card.dart';
+import 'card.dart';
 
 final List<Card> defaultCardSet =
     createCardWithNums([1, 2, 3, 4, 5, 6, 7, 8, 9]);

@@ -1,5 +1,5 @@
-import 'package:shut_the_box/gameModel/dice.dart';
-import 'package:shut_the_box/gameModel/player.dart';
+import 'dice.dart';
+import 'player.dart';
 
 class Game {
   List<Player> players;
