@@ -5,7 +5,7 @@ import 'package:shut_the_box_engine/shut_the_box_engine.dart' as E;
 class GameView extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final game = ref.watch(E.gameProvider);
+    final game = ref.watch(E.gameProvider).game;
     return Scaffold(
       body: Center(
         child: Text(game.players.length.toString()),
