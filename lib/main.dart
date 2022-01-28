@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:shut_the_box/game/main.dart';
 
 void main() {
   runApp(const ProviderScope(child: MyApp()));
@@ -30,23 +31,8 @@ class MyApp extends StatelessWidget {
   }
 }
 
-final valueProvider = Provider<int>((ref) {
-  return 36;
-});
-
-class MyHomePage extends ConsumerWidget {
-  @override
-  // 2. build() method has an extra [WidgetRef] argument
-  Widget build(BuildContext context, WidgetRef ref) {
-    // 3. use ref.watch() to get the value of the provider
-    final value = ref.watch(valueProvider);
-    return Scaffold(
-      body: Center(
-        child: Text(
-          'Value: $value',
-          style: Theme.of(context).textTheme.headline4,
-        ),
-      ),
-    );
+class MyHomePage extends StatelessWidget {
+  Widget build(BuildContext context) {
+    return GameView();
   }
 }
