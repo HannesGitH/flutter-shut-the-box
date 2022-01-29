@@ -3,16 +3,17 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shut_the_box_engine/shut_the_box_engine.dart' as E;
 
 class GameView extends ConsumerWidget {
+  final _gamep = E.gameProvider(E.Game());
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final game = ref.watch(E.gameProvider).game;
+    final gamep = ref.watch(_gamep); //.game;
     return Scaffold(
       body: Center(
-        child: Text(game.players.length.toString()),
+        child: Text(gamep.game.players.length.toString()),
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          ref.read(E.gameProvider.notifier).addPlayers([E.Player()]);
+          ref.read(_gamep).addPlayers([E.Player()]);
         },
       ),
     );
