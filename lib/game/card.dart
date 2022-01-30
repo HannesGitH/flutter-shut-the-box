@@ -19,15 +19,18 @@ class PlayCard extends ConsumerWidget {
       child: TextButton(
         style: ButtonStyle(
           padding: MaterialStateProperty.all(
-              const EdgeInsets.symmetric(horizontal: 0, vertical: 40)),
-          elevation: MaterialStateProperty.all(card.isDown ? 0 : 8),
+              const EdgeInsets.symmetric(horizontal: 0, vertical: 10)),
+          elevation: MaterialStateProperty.all(card.isDown ? 0 : 3),
           shape: MaterialStateProperty.all(
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(10))),
           shadowColor: MaterialStateProperty.all(
               card.isSelected ? theme.primaryColor : null),
           backgroundColor: MaterialStateProperty.all(theme.canvasColor),
         ),
-        child: Text(card.number.toString()),
+        child: Text(
+          card.number.toString(),
+          style: const TextStyle(fontSize: 40, fontWeight: FontWeight.w100),
+        ),
         onPressed: onPressed,
       ),
     );

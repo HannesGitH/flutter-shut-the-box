@@ -27,52 +27,65 @@ class Players extends ConsumerWidget {
 }
 
 class PlayerArea extends StatelessWidget {
-  const PlayerArea(this.player, {Key? key}) : super(key: key);
+  const PlayerArea(this.playerp, {Key? key}) : super(key: key);
 
-  final ChangeNotifierProvider<e.Player> player;
+  final ChangeNotifierProvider<e.Player> playerp;
 
   @override
   Widget build(BuildContext context) {
     return Consumer(
-      builder: (context, ref, child) => Column(
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                child: Text(
-                  ref.watch(player).name,
-                  style: const TextStyle(
-                      fontSize: 20, fontWeight: FontWeight.w300),
+      builder: (context, ref, child) {
+        final player = ref.watch(playerp);
+
+        return Column(
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                  child: Text(
+                    player.name,
+                    style: const TextStyle(
+                        fontSize: 20, fontWeight: FontWeight.w300),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                  child: Row(
+                    children: [
+                      Text(ref.watch(stillMissingProvider)),
+                      Text(
+                        player.roundEyes.toString(),
+                        style: TextStyle(
+                            color: player.roundEyes == 0
+                                ? Colors.green
+                                : Colors.red),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+            SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Row(
+                  children: e
+                      .provFromList(player
+                          .cards) //BUG: warum hat jeder player die selben karten? //TODO
+                      .mapIndexed((i, c) => PlayCard(
+                            c,
+                            onPressed: () => ref.read(playerp).toggleCard(i),
+                          ))
+                      .toList(),
                 ),
               ),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                child: Text(ref.watch(stillMissingProvider) +
-                    ref.watch(player).roundEyes.toString()),
-              ),
-            ],
-          ),
-          SingleChildScrollView(
-            scrollDirection: Axis.horizontal,
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Row(
-                children: e
-                    .provFromList(ref
-                        .watch(player)
-                        .cards) //BUG: warum hat jeder player die selben karten? //TODO
-                    .mapIndexed((i, c) => PlayCard(
-                          c,
-                          onPressed: () => ref.read(player).toggleCard(i),
-                        ))
-                    .toList(),
-              ),
             ),
-          ),
-        ],
-      ),
+          ],
+        );
+      },
     );
   }
 }
