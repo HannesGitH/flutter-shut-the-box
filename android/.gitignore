@@ -11,3 +11,6 @@ GeneratedPluginRegistrant.java
 key.properties
 **/*.keystore
 **/*.jks
+
+# yeah i could pgp-encode it and upload as base64 secret to then decode in actions but meh
+!upload-keystore.jks

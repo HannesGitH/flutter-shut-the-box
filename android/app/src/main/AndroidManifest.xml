@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.shut_the_box">
+    package="com.hanneps.games.shut_the_box">
    <application
-        android:label="shut_the_box"
+        android:label="shut the box"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity
