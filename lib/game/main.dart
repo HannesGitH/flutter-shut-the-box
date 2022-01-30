@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:shut_the_box_engine/shut_the_box_engine.dart' as E;
+import 'package:shut_the_box_engine/shut_the_box_engine.dart' as e;
+import 'package:collection/collection.dart';
 
-final _gamep = E.gameProvider(E.Game());
+final _gamep = e.gameProvider(e.Game());
+
+final stillMissingProvider = Provider<String>((_) => "noch: ");
 
 class GameView extends ConsumerWidget {
   @override
@@ -31,11 +34,16 @@ class Players extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final gamep = ref.watch(_gamep);
 
-    return Column(
-      children:
-          E.provFromList(gamep.game.players).map((p) => PlayerArea(p)).toList(),
-      mainAxisAlignment: MainAxisAlignment.end,
-      mainAxisSize: MainAxisSize.min,
+    return Align(
+      alignment: Alignment.bottomCenter,
+      child: Column(
+        children: e
+            .provFromList(gamep.game.players)
+            .map((p) => PlayerArea(p))
+            .toList(),
+        mainAxisAlignment: MainAxisAlignment.end,
+        mainAxisSize: MainAxisSize.min,
+      ),
     );
   }
 }
@@ -43,7 +51,7 @@ class Players extends ConsumerWidget {
 class PlayerArea extends StatelessWidget {
   const PlayerArea(this.player, {Key? key}) : super(key: key);
 
-  final ChangeNotifierProvider<E.Player> player;
+  final ChangeNotifierProvider<e.Player> player;
 
   @override
   Widget build(BuildContext context) {
@@ -51,10 +59,21 @@ class PlayerArea extends StatelessWidget {
       builder: (context, ref, child) => Column(
         children: [
           Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text(ref.watch(player).name),
-              const SizedBox(width: 10),
-              Text(ref.watch(player).roundEyes.toString()),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                child: Text(
+                  ref.watch(player).name,
+                  style: const TextStyle(
+                      fontSize: 20, fontWeight: FontWeight.w300),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                child: Text(ref.watch(stillMissingProvider) +
+                    ref.watch(player).roundEyes.toString()),
+              ),
             ],
           ),
           SingleChildScrollView(
@@ -62,11 +81,14 @@ class PlayerArea extends StatelessWidget {
             child: Padding(
               padding: const EdgeInsets.all(8.0),
               child: Row(
-                children: E
+                children: e
                     .provFromList(ref
                         .watch(player)
                         .cards) //BUG: warum hat jeder player die selben karten? //TODO
-                    .map((c) => PlayCard(c))
+                    .mapIndexed((i, c) => PlayCard(
+                          c,
+                          onPressed: () => ref.read(player).toggleCard(i),
+                        ))
                     .toList(),
               ),
             ),
@@ -78,9 +100,12 @@ class PlayerArea extends StatelessWidget {
 }
 
 class PlayCard extends ConsumerWidget {
-  const PlayCard(this.cardp, {Key? key}) : super(key: key);
+  const PlayCard(this.cardp, {required this.onPressed, Key? key})
+      : super(key: key);
 
-  final ChangeNotifierProvider<E.Card> cardp;
+  final ChangeNotifierProvider<e.Card> cardp;
+
+  final Function() onPressed;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -100,7 +125,7 @@ class PlayCard extends ConsumerWidget {
           backgroundColor: MaterialStateProperty.all(theme.canvasColor),
         ),
         child: Text(card.number.toString()),
-        onPressed: () => card.isSelected ^= true,
+        onPressed: onPressed,
       ),
     );
   }
@@ -108,7 +133,7 @@ class PlayCard extends ConsumerWidget {
 
 class PlayerWon extends StatelessWidget {
   const PlayerWon(this.winner, {Key? key}) : super(key: key);
-  final E.Player? winner;
+  final e.Player? winner;
 
   @override
   Widget build(BuildContext context) {
