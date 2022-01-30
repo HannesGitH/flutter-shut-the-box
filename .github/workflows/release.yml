@@ -22,7 +22,7 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
-      - uses: HannesGitH/flutter_shut_the_box/.github/actions/setup@main
+      - uses: HannesGitH/flutter-shut-the-box/.github/actions/setup@main
       - name: run tests and report coverage
         run: flutter test --coverage
       - name: comment coverage
@@ -38,7 +38,7 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
-      - uses: HannesGitH/flutter_shut_the_box/.github/actions/setup@main
+      - uses: HannesGitH/flutter-shut-the-box/.github/actions/setup@main
       - name: Build Documentation
         run: |
           flutter pub global activate dartdoc
@@ -60,7 +60,7 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
-      - uses: HannesGitH/flutter_shut_the_box/.github/actions/setup@main
+      - uses: HannesGitH/flutter-shut-the-box/.github/actions/setup@main
 
       - name: create key.properties for signing
         run: |
