@@ -119,9 +119,9 @@ packages:
   shut_the_box_engine:
     dependency: "direct main"
     description:
-      path: "../shut_the_box_engine"
-      relative: true
-    source: path
+      name: shut_the_box_engine
+      url: "https://pub.dartlang.org"
+    source: hosted
     version: "0.0.2"
   sky_engine:
     dependency: transitive

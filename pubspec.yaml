@@ -30,8 +30,7 @@ dependencies:
   flutter:
     sdk: flutter
 
-  shut_the_box_engine:
-    path: ../shut_the_box_engine
+  shut_the_box_engine: ^0.0.3
 
   flutter_riverpod:
 
