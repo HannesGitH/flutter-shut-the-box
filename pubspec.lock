@@ -122,7 +122,7 @@ packages:
       name: shut_the_box_engine
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.0.2"
+    version: "0.1.0"
   sky_engine:
     dependency: transitive
     description: flutter
