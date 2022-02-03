@@ -1,4 +1,4 @@
-package com.example.shut_the_box
+package com.hannepps.games.shutthebox
 
 import io.flutter.embedding.android.FlutterActivity
 

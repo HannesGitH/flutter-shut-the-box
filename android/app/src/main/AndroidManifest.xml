@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.hanneps.games.shut_the_box">
+    package="com.hannepps.games.shutthebox">
    <application
         android:label="shut the box"
         android:name="${applicationName}"
