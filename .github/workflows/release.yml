@@ -178,7 +178,6 @@ jobs:
           name: appbundle
       - name: create release notes #TODO make this actual notes
         run: |
-          cd ..
           mkdir news
           touch news/whatsnew-en-US
           cat ./release-info.md >> news/whatsnew-en-US 
